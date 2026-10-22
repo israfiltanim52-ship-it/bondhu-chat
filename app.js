@@ -1,10 +1,7 @@
 // Bondhu Chat — Firebase configuration is set below.
-
 import { getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, where, getDocs, limit, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-storage.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyAm-_we8S2oKkmsblp_fAP95L6rkEaYjtE",
   authDomain: "bondhu-chat-b76d6.firebaseapp.com",
@@ -31,34 +28,9 @@ function showAuth(){authView.classList.remove("hidden");appView.classList.add("h
 function showApp(){authView.classList.add("hidden");appView.classList.remove("hidden");$("logoutBtn").classList.remove("hidden");}
 function normalizePhone(v){return v.trim().replace(/[()\s-]/g,"");}
 function validPhone(v){return /^\+[1-9]\d{7,14}$/.test(v);}
-$("sendOtpBtn").addEventListener("click",async()=>{
-  if(!configured)return;
-  const name=$("nameInput").value.trim(),phone=normalizePhone($("phoneInput").value);
-  if(!name){authMsg.textContent="আপনার নাম লিখুন।";return;}
-  if(!validPhone(phone)){authMsg.textContent="দেশের কোডসহ নম্বর লিখুন, যেমন +8801XXXXXXXXX।";return;}
-  try{
-    $("sendOtpBtn").disabled=true;
-    if(!recaptcha)recaptcha=new RecaptchaVerifier(auth,"recaptcha-container",{size:"normal"});
-    confirmation=await signInWithPhoneNumber(auth,phone,recaptcha);
-    $("otpArea").classList.remove("hidden");authMsg.textContent="SMS কোড পাঠানো হয়েছে।";
-  }catch(e){authMsg.textContent="কোড পাঠানো যায়নি: "+friendly(e);try{recaptcha?.clear();}catch{}recaptcha=null;}
-  finally{$("sendOtpBtn").disabled=false;}
-});
-$("verifyOtpBtn").addEventListener("click",async()=>{
-  try{
-    const result=await confirmation.confirm($("otpInput").value.trim());
-    me=result.user;
-    const name=$("nameInput").value.trim()||"বন্ধু";
-    let url=me.photoURL||fallbackPhoto;
-    const file=$("photoInput").files?.[0];
-    if(file){if(file.size>3*1024*1024)throw new Error("ছবির আকার ৩ MB-এর কম রাখুন।");const r=ref(storage,`profilePhotos/${me.uid}`);await uploadBytes(r,file);url=await getDownloadURL(r);}
-    await setDoc(doc(db,"users",me.uid),{uid:me.uid,name,phone:me.phoneNumber,photoURL:url,updatedAt:serverTimestamp()},{merge:true});
-    await loadProfile();showApp();
-  }catch(e){authMsg.textContent="লগইন হয়নি: "+friendly(e);}
-});
 async function loadProfile(){
   const snap=await getDoc(doc(db,"users",me.uid));
-  if(!snap.exists()){showAuth();authMsg.textContent="আপনার নাম লিখে প্রোফাইল সম্পূর্ণ করুন।";return;}
+  if(!snap.exists()){await setDoc(doc(db,"users",me.uid),{uid:me.uid,name:me.email?.split("@")[0]||"বন্ধু",email:me.email||"",phone:"",photoURL:fallbackPhoto,updatedAt:serverTimestamp()},{merge:true});return await loadProfile();}
   const p=snap.data();$("myName").textContent=p.name||"বন্ধু";$("myPhone").textContent=p.phone||me.phoneNumber||"";$("myPhoto").src=p.photoURL||fallbackPhoto;photoURL=p.photoURL||fallbackPhoto;
   listenChats();
 }
