@@ -10,7 +10,7 @@ const firebaseConfig = {
   messagingSenderId: "247069315591",
   appId: "1:247069315591:web:53b1bbdf2e4ccd845750a2"
 };
-const configured = !Object.values(firebaseConfig).some(v => String(v).startsWith("PASTE_"));
+const configured = Boolean(firebaseConfig.apiKey && firebaseConfig.authDomain && firebaseConfig.projectId && firebaseConfig.appId);
 const $ = id => document.getElementById(id);
 const authView=$("authView"), appView=$("appView"), authMsg=$("authMsg");
 let app,auth,db,storage,confirmation,recaptcha,me=null,activeFriend=null,stopMessages=null,stopChats=null;
