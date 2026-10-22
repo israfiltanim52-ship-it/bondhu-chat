@@ -2,133 +2,97 @@
 <html lang="bn">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#1769e0">
-  <meta name="description" content="Bondhu Chat — সহজ টেক্সট মেসেজিং">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#080d1b">
+  <meta name="description" content="Bondhu Chat — private conversations with friends">
   <link rel="manifest" href="./manifest.json">
   <link rel="stylesheet" href="./style.css">
-  <title>বন্ধু চ্যাট</title>
+  <title>Bondhu Chat</title>
 </head>
-
 <body>
-  <header>
-    <div class="brand">
-      <span class="logo">ব</span>
-      <div>
-        <strong>বন্ধু চ্যাট</strong>
-        <small>Bondhu Chat</small>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-mark" aria-hidden="true">B</div>
+      <div class="brand-copy"><div class="brand-name">Bondhu <span>Chat</span></div><div class="brand-sub" data-i18n="tagline">বন্ধুত্বের কথোপকথন</div></div>
+      <div class="top-actions">
+        <button id="langToggle" class="icon-btn" title="বাংলা / English">বাং</button>
+        <button id="themeToggle" class="icon-btn" title="Theme">◐</button>
       </div>
-    </div>
-    <button id="logoutBtn" class="ghost hidden" type="button">লগআউট</button>
-  </header>
+    </header>
 
-  <main>
-    <section id="setupNotice" class="notice">
-      প্রথমে <code>app.js</code> ফাইলে Firebase কনফিগারেশন বসান।
-    </section>
-
-    <!-- Login and registration -->
-    <section id="authView" class="panel">
-      <h2>ইমেইল দিয়ে লগইন</h2>
-
-      <label for="emailInput">ইমেইল</label>
-      <input
-        id="emailInput"
-        type="email"
-        placeholder="আপনার ইমেইল লিখুন"
-        autocomplete="email"
-      >
-
-      <label for="passwordInput">পাসওয়ার্ড</label>
-      <input
-        id="passwordInput"
-        type="password"
-        placeholder="পাসওয়ার্ড লিখুন"
-        autocomplete="current-password"
-      >
-
-      <button id="emailLoginBtn" class="primary" type="button">
-        লগইন
-      </button>
-
-      <button id="emailRegisterBtn" class="ghost" type="button">
-        নতুন অ্যাকাউন্ট খুলুন
-      </button>
-
-      <p id="authMsg" class="message" aria-live="polite"></p>
-    </section>
-
-    <!-- Main application -->
-    <section id="appView" class="hidden">
-
-      <div class="panel profileRow">
-        <img id="myPhoto" class="avatar" alt="আমার ছবি">
-        <div class="grow">
-          <strong id="myName"></strong>
-          <small id="myPhone"></small>
-        </div>
-        <span class="onlineDot"></span>
-      </div>
-
-      <section class="panel">
-        <h2>বন্ধুকে খুঁজুন</h2>
-        <p class="muted">বন্ধুর দেশ কোডসহ ফোন নম্বর লিখুন।</p>
-
-        <div class="searchRow">
-          <input
-            id="friendPhone"
-            inputmode="tel"
-            placeholder="+8801XXXXXXXXX"
-          >
-          <button id="findBtn" class="primary" type="button">খুঁজুন</button>
-        </div>
-
-        <p id="findMsg" class="message" aria-live="polite"></p>
-        <div id="foundFriend"></div>
-      </section>
-
-      <section class="panel">
-        <h2>সাম্প্রতিক চ্যাট</h2>
-        <div id="chatList">
-          <p class="muted">এখনো কোনো চ্যাট নেই।</p>
-        </div>
-      </section>
-
-      <section id="chatPanel" class="panel hidden">
-        <div class="chatHeading">
-          <button id="backBtn" class="ghost" type="button">←</button>
-          <img id="friendPhoto" class="avatar small" alt="বন্ধুর ছবি">
-          <div class="grow">
-            <strong id="friendName"></strong>
-            <small id="friendStatus">চ্যাট</small>
-          </div>
-        </div>
-
-        <div id="messages" class="messages"></div>
-
-        <form id="sendForm" class="sendRow">
-          <input
-            id="messageInput"
-            maxlength="2000"
-            placeholder="মেসেজ লিখুন…"
-            autocomplete="off"
-          >
-          <button class="primary" type="submit">পাঠান</button>
+    <main>
+      <section id="authView" class="auth-wrap">
+        <div class="hero-orb">BC</div>
+        <p class="eyebrow">WELCOME TO</p>
+        <h1>Bondhu <span>Chat</span></h1>
+        <p class="muted" data-i18n="authIntro">নিরাপদে কথা বলুন, বন্ধুত্ব রাখুন কাছাকাছি।</p>
+        <form id="authForm" class="panel auth-panel">
+          <div class="segmented"><button type="button" id="loginMode" class="active" data-i18n="login">লগইন</button><button type="button" id="signupMode" data-i18n="signup">নতুন অ্যাকাউন্ট</button></div>
+          <label data-i18n="displayNameLabel" id="nameLabel" class="hidden">আপনার নাম</label>
+          <input id="displayName" class="hidden" autocomplete="name" placeholder="Your name">
+          <label for="email" data-i18n="email">ইমেইল</label>
+          <input id="email" type="email" autocomplete="email" required placeholder="name@example.com">
+          <label for="password" data-i18n="password">পাসওয়ার্ড</label>
+          <input id="password" type="password" autocomplete="current-password" minlength="6" required placeholder="কমপক্ষে ৬ অক্ষর">
+          <button class="primary-btn full" type="submit" id="authSubmit" data-i18n="login">লগইন</button>
+          <button class="text-btn" type="button" id="resetPassword" data-i18n="forgot">পাসওয়ার্ড ভুলে গেছেন?</button>
+          <p id="authMessage" class="status-message" role="status"></p>
         </form>
-
-        <p id="sendMsg" class="message"></p>
       </section>
 
-    </section>
-  </main>
+      <section id="appView" class="hidden">
+        <section id="homePage" class="page active">
+          <div class="welcome-row"><div><p class="eyebrow" data-i18n="goodToSee">আবার দেখা হয়ে ভালো লাগছে</p><h2 id="welcomeTitle">হ্যালো!</h2></div><div class="avatar" id="homeAvatar">B</div></div>
+          <div class="feature-card"><div class="feature-glow"></div><p class="eyebrow" data-i18n="yourSpace">YOUR SPACE</p><h2 data-i18n="stayConnected">বন্ধুদের সঙ্গে যুক্ত থাকুন</h2><p data-i18n="homeDesc">এক জায়গায় আপনার কথোপকথন, ভয়েস মেসেজ ও বন্ধুদের তালিকা।</p><button class="primary-btn" data-go="chatsPage" data-i18n="openChats">চ্যাট খুলুন <span>↗</span></button></div>
+          <div class="section-heading"><h3 data-i18n="recentChats">সাম্প্রতিক চ্যাট</h3><button class="text-btn" data-go="chatsPage" data-i18n="seeAll">সব দেখুন</button></div>
+          <div id="homeRecent" class="chat-list"><div class="empty-state" data-i18n="noChats">এখনো কোনো চ্যাট নেই।</div></div>
+          <div class="notice-card"><span class="notice-icon">✦</span><div><strong data-i18n="comingSoon">কল ফিচার আসছে</strong><p data-i18n="comingDesc">অডিও ও ভিডিও কল পরবর্তী ধাপে যুক্ত হবে।</p></div></div>
+        </section>
 
-  <footer>বন্ধু চ্যাট · শুধু টেক্সট মেসেজ</footer>
+        <section id="chatsPage" class="page">
+          <div class="page-heading"><div><p class="eyebrow">YOUR CONVERSATIONS</p><h2 data-i18n="chats">চ্যাট</h2></div><div class="avatar small" id="chatAvatar">B</div></div>
+          <div class="search-wrap"><span>⌕</span><input id="userSearch" type="search" placeholder="ইমেইল দিয়ে বন্ধু খুঁজুন" data-i18n-placeholder="searchPlaceholder"><button id="searchBtn" class="search-btn" data-i18n="search">খুঁজুন</button></div>
+          <p id="searchMessage" class="status-message"></p>
+          <div id="searchResults" class="search-results"></div>
+          <div class="section-heading"><h3 data-i18n="yourChats">আপনার চ্যাট</h3></div>
+          <div id="chatList" class="chat-list"><div class="empty-state" data-i18n="noChats">এখনো কোনো চ্যাট নেই।</div></div>
+        </section>
 
-  <div class="developer-credit" style="text-align:center;padding:16px;color:#1769e0;">
-    নির্মাতা: <strong>ইস্রাফিল তানিম</strong><br>
-    Developer: Israfil Tanim
+        <section id="conversationPage" class="page conversation-page">
+          <div class="conversation-head"><button id="backToChats" class="icon-btn">‹</button><div class="avatar small" id="peerAvatar">B</div><div class="peer-info"><strong id="peerName">বন্ধু</strong><small id="peerStatus" data-i18n="directChat">সরাসরি চ্যাট</small></div><span class="secure-dot" title="Signed in">●</span></div>
+          <div id="messages" class="messages"><div class="empty-state" data-i18n="startConversation">কথোপকথন শুরু করুন।</div></div>
+          <div id="recordingStatus" class="recording-status hidden">● <span data-i18n="recording">রেকর্ড হচ্ছে…</span></div>
+          <form id="messageForm" class="composer">
+            <button type="button" id="voiceBtn" class="icon-btn voice-btn" title="Record voice message">🎙</button>
+            <input id="messageInput" autocomplete="off" maxlength="4000" placeholder="মেসেজ লিখুন…" data-i18n-placeholder="messagePlaceholder">
+            <button type="submit" id="sendBtn" class="send-btn" aria-label="Send">➤</button>
+          </form>
+          <p class="tiny-note" data-i18n="voiceHint">ভয়েস রেকর্ড শুরু/শেষ করতে মাইক্রোফোন চাপুন।</p>
+        </section>
+
+        <section id="callsPage" class="page">
+          <div class="page-heading"><div><p class="eyebrow">STAY IN TOUCH</p><h2 data-i18n="calls">কল</h2></div><div class="round-icon">◉</div></div>
+          <div class="coming-card"><div class="call-art">⌁</div><h3 data-i18n="callsSoon">অডিও ও ভিডিও কল শিগগিরই</h3><p data-i18n="callsSoonDesc">এই সংস্করণে চ্যাট ও ভয়েস মেসেজ আগে চালু করা হয়েছে। বাস্তব কলের জন্য পরবর্তী ধাপে WebRTC signaling ও প্রয়োজনীয় নেটওয়ার্ক কনফিগারেশন যোগ করতে হবে।</p><span class="pill">COMING NEXT</span></div>
+          <div class="section-heading"><h3 data-i18n="callHistory">কলের ইতিহাস</h3></div><div class="empty-state" data-i18n="noCalls">এখনো কোনো কল নেই।</div>
+        </section>
+
+        <section id="profilePage" class="page">
+          <div class="page-heading"><div><p class="eyebrow">YOUR ACCOUNT</p><h2 data-i18n="profile">প্রোফাইল</h2></div></div>
+          <div class="profile-card"><div class="avatar profile-avatar" id="profileAvatar">B</div><h3 id="profileName">বন্ধু</h3><p id="profileEmail" class="muted"></p><span class="online-pill"><i></i><span data-i18n="signedIn">সাইন ইন করা আছে</span></span></div>
+          <div class="settings-list"><div class="setting-row"><div><strong data-i18n="language">ভাষা</strong><small data-i18n="languageDesc">বাংলা ও ইংরেজি</small></div><button id="langToggle2" class="outline-btn">বাংলা / EN</button></div><div class="setting-row"><div><strong data-i18n="appearance">থিম</strong><small data-i18n="appearanceDesc">কালো-নীল প্রিমিয়াম</small></div><button id="themeToggle2" class="outline-btn" data-i18n="change">পরিবর্তন</button></div><div class="setting-row"><div><strong data-i18n="account">অ্যাকাউন্ট</strong><small data-i18n="accountDesc">আপনার অ্যাকাউন্ট থেকে বের হন</small></div><button id="logoutBtn" class="danger-btn" data-i18n="logout">লগআউট</button></div></div>
+          <p class="tiny-note center">Bondhu Chat • <span data-i18n="madeForFriends">বন্ধুদের জন্য তৈরি</span></p>
+        </section>
+      </section>
+    </main>
+
+    <nav id="bottomNav" class="bottom-nav hidden" aria-label="Main navigation">
+      <button class="nav-item active" data-page="homePage"><span>⌂</span><small data-i18n="home">Home</small></button>
+      <button class="nav-item" data-page="chatsPage"><span>▤</span><small data-i18n="chats">Chats</small></button>
+      <button class="nav-item" data-page="callsPage"><span>◉</span><small data-i18n="calls">Calls</small></button>
+      <button class="nav-item" data-page="profilePage"><span>◎</span><small data-i18n="profile">Profile</small></button>
+    </nav>
+    <div id="toast" class="toast hidden" role="status"></div>
   </div>
-
   <script type="module" src="./app.js"></script>
 </body>
-        </html>
+</html>

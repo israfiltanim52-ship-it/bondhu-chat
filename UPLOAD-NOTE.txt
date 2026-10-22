@@ -1,0 +1,8 @@
+BONDHU CHAT — UPLOAD NOTE
+
+1. ZIP extract করুন।
+2. GitHub repository-এর root-এ থাকা একই নামের ফাইলগুলো replace/upload করুন।
+3. index.html, app.js, style.css, manifest.json, sw.js একই root directory-তে থাকতে হবে।
+4. Firebase project bondhu-chat-b76d6 মুছবেন না এবং Authentication Users delete করবেন না।
+5. Voice message চালাতে Firestore/Storage Rules ও Storage setup দরকার; README-BN.md পড়ুন।
+6. Audio/video calling এই release-এ নেই; পরে আলাদা WebRTC/signaling setup করতে হবে।
