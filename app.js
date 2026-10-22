@@ -119,3 +119,49 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./sw.js").catch(() => {});
   });
 }
+// Email and password authentication
+$("emailRegisterBtn").addEventListener("click", async () => {
+  const name = $("nameInput").value.trim();
+  const email = $("emailInput").value.trim();
+  const password = $("passwordInput").value;
+
+  if (!name || !email || !password) {
+    authMsg.textContent = "নাম, ইমেইল ও পাসওয়ার্ড লিখুন।";
+    return;
+  }
+
+  try {
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    me = result.user;
+
+    await setDoc(doc(db, "users", me.uid), {
+      uid: me.uid,
+      name,
+      email,
+      phone: "",
+      photoURL: fallbackPhoto,
+      updatedAt: serverTimestamp()
+    }, { merge: true });
+
+    await loadProfile();
+    showApp();
+  } catch (e) {
+    authMsg.textContent = "অ্যাকাউন্ট তৈরি হয়নি: " + friendly(e);
+  }
+});
+
+$("emailLoginBtn").addEventListener("click", async () => {
+  const email = $("emailInput").value.trim();
+  const password = $("passwordInput").value;
+
+  if (!email || !password) {
+    authMsg.textContent = "ইমেইল ও পাসওয়ার্ড লিখুন।";
+    return;
+  }
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (e) {
+    authMsg.textContent = "লগইন হয়নি: " + friendly(e);
+  }
+});
