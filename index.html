@@ -13,7 +13,15 @@
   <header><div class="brand"><span class="logo">ব</span><div><strong>বন্ধু চ্যাট</strong><small>Bondhu Chat</small></div></div><button id="logoutBtn" class="ghost hidden">লগআউট</button></header>
   <main>
     <section id="setupNotice" class="notice">প্রথমে <code>app.js</code> ফাইলে Firebase কনফিগারেশন বসান।</section>
-    <section id="authView" class="panel">
+    <section id="authView"<div class="panel">
+  <h2>ইমেইল দিয়ে লগইন</h2>
+  <label for="emailInput">ইমেইল</label>
+  <input id="emailInput" type="email" placeholder="আপনার ইমেইল লিখুন">
+  <label for="passwordInput">পাসওয়ার্ড</label>
+  <input id="passwordInput" type="password" placeholder="পাসওয়ার্ড লিখুন">
+  <button id="emailLoginBtn" class="primary">লগইন</button>
+  <button id="emailRegisterBtn" class="ghost">নতুন অ্যাকাউন্ট খুলুন</button>
+      </div>
       <h1>বন্ধুদের সঙ্গে কথা বলুন</h1><p class="muted">ফোন নম্বর যাচাই করে অ্যাকাউন্ট তৈরি করুন।</p>
       <label for="photoInput">প্রোফাইল ছবি (ঐচ্ছিক)</label><input id="photoInput" type="file" accept="image/*">
       <div id="recaptcha-container"></div>
