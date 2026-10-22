@@ -94,13 +94,13 @@ if ("serviceWorker" in navigator) {
 }
 // Email and password authentication
 $("emailRegisterBtn").addEventListener("click", async () => {
-  const name = $("nameInput").value.trim();
+  const name = $("emailInput").value.trim().split("@")[0] || "বন্ধু";
   const email = $("emailInput").value.trim();
   const password = $("passwordInput").value;
 
-  if (!name || !email || !password) {
-    authMsg.textContent = "নাম, ইমেইল ও পাসওয়ার্ড লিখুন।";
-    return;
+  if (!email || !password) {
+  authMsg.textContent = "ইমেইল ও পাসওয়ার্ড লিখুন";
+  return;
   }
 
   try {
