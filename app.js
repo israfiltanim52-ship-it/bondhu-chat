@@ -114,4 +114,8 @@ function listenChats(){
   },e=>{$("chatList").textContent="চ্যাট তালিকা লোড হয়নি: "+friendly(e);});
 }
 function friendly(e){const code=e?.code||"";if(code.includes("invalid-phone-number"))return"ফোন নম্বর সঠিক নয়।";if(code.includes("too-many-requests"))return"অনেকবার চেষ্টা হয়েছে। পরে আবার চেষ্টা করুন।";if(code.includes("permission-denied"))return"Firebase Rules অনুমতি দিচ্ছে না। নির্দেশিকার Rules ধাপ দেখুন।";return e?.message||"আবার চেষ্টা করুন।";}
-if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
+  });
+}
