@@ -28,7 +28,7 @@ import {
 
 /* Firebase configuration */
 const firebaseConfig = {
-  apiKey: "AIzaSyAm-_we8S2oKkmsbl_p_fAP95L6rkEaYjtE",
+  apiKey: "AIzaSyAm-_we8S2oKkmsblp_fAP95L6rkEaYjtE",
   authDomain: "bondhu-chat-b76d6.firebaseapp.com",
   projectId: "bondhu-chat-b76d6",
   storageBucket: "bondhu-chat-b76d6.firebasestorage.app",
