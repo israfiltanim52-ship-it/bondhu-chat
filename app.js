@@ -70,7 +70,10 @@ $("authForm").addEventListener("submit",async e=>{
       const name=$("displayName").value.trim();if(!name)throw new Error("NAME_REQUIRED");
       const cred=await createUserWithEmailAndPassword(auth,email,password);await updateProfile(cred.user,{displayName:name});await ensureUserProfile(cred.user,name);
     }else{const cred=await signInWithEmailAndPassword(auth,email,password);await ensureUserProfile(cred.user);}
-  }catch(err){let msg=state.mode==="signup"?t("signupFailed"):t("loginFailed");if(err.message==="NAME_REQUIRED")msg=t("displayNameLabel");if(err.code==="auth/email-already-in-use")msg=state.lang==="bn"?"এই ইমেইলে আগে থেকেই অ্যাকাউন্ট আছে। লগইন করুন।":"An account already exists. Please log in.";if(err.code==="auth/too-many-requests"||err.code==="auth/quota-exceeded")msg=state.lang==="bn"?"অনেকবার চেষ্টা হয়েছে বা Firebase সীমা পূর্ণ। বারবার চেষ্টা না করে Firebase Console-এর Auth/Quota পরীক্ষা করুন।":"Too many attempts or Firebase quota reached. Check Firebase Auth/quotas before retrying.";status($("authMessage"),msg,true);
+  }catch(err){
+  console.error("Authentication error:", err.code, err.message);
+  const msg = `${err.code || "unknown"}: ${err.message || "Unknown error"}`;
+  status($("authMessage"), msg, true);if(err.message==="NAME_REQUIRED")msg=t("displayNameLabel");if(err.code==="auth/email-already-in-use")msg=state.lang==="bn"?"এই ইমেইলে আগে থেকেই অ্যাকাউন্ট আছে। লগইন করুন।":"An account already exists. Please log in.";if(err.code==="auth/too-many-requests"||err.code==="auth/quota-exceeded")msg=state.lang==="bn"?"অনেকবার চেষ্টা হয়েছে বা Firebase সীমা পূর্ণ। বারবার চেষ্টা না করে Firebase Console-এর Auth/Quota পরীক্ষা করুন।":"Too many attempts or Firebase quota reached. Check Firebase Auth/quotas before retrying.";status($("authMessage"),msg,true);
   }finally{$("authSubmit").disabled=false;}
 });
 $("resetPassword").addEventListener("click",async()=>{const email=$("email").value.trim();if(!email){status($("authMessage"),state.lang==="bn"?"আগে ইমেইল লিখুন।":"Enter your email first.",true);return;}try{await sendPasswordResetEmail(auth,email);status($("authMessage"),t("resetSent"));}catch(e){console.error("Password reset error:", e.code, e.message);
