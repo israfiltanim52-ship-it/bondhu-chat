@@ -73,7 +73,8 @@ $("authForm").addEventListener("submit",async e=>{
   }catch(err){let msg=state.mode==="signup"?t("signupFailed"):t("loginFailed");if(err.message==="NAME_REQUIRED")msg=t("displayNameLabel");if(err.code==="auth/email-already-in-use")msg=state.lang==="bn"?"এই ইমেইলে আগে থেকেই অ্যাকাউন্ট আছে। লগইন করুন।":"An account already exists. Please log in.";if(err.code==="auth/too-many-requests"||err.code==="auth/quota-exceeded")msg=state.lang==="bn"?"অনেকবার চেষ্টা হয়েছে বা Firebase সীমা পূর্ণ। বারবার চেষ্টা না করে Firebase Console-এর Auth/Quota পরীক্ষা করুন।":"Too many attempts or Firebase quota reached. Check Firebase Auth/quotas before retrying.";status($("authMessage"),msg,true);
   }finally{$("authSubmit").disabled=false;}
 });
-$("resetPassword").addEventListener("click",async()=>{const email=$("email").value.trim();if(!email){status($("authMessage"),state.lang==="bn"?"আগে ইমেইল লিখুন।":"Enter your email first.",true);return;}try{await sendPasswordResetEmail(auth,email);status($("authMessage"),t("resetSent"));}catch(e){status($("authMessage"),t("resetFailed"),true);}});
+$("resetPassword").addEventListener("click",async()=>{const email=$("email").value.trim();if(!email){status($("authMessage"),state.lang==="bn"?"আগে ইমেইল লিখুন।":"Enter your email first.",true);return;}try{await sendPasswordResetEmail(auth,email);status($("authMessage"),t("resetSent"));}catch(e){console.error("Password reset error:", e.code, e.message);
+status($("authMessage"), `${e.code || "unknown"}: ${e.message}`, true);}});
 $("logoutBtn").addEventListener("click",async()=>{try{await signOut(auth);toast(t("signedOut"));}catch(e){toast("Logout failed");}});
 $("langToggle").addEventListener("click",toggleLanguage);$("langToggle2").addEventListener("click",toggleLanguage);
 function toggleLanguage(){state.lang=state.lang==="bn"?"en":"bn";localStorage.setItem("bondhuLang",state.lang);applyLanguage();if(state.peer)renderMessages();toast(t("languageChanged"));}
