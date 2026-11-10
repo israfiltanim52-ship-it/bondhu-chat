@@ -1,313 +1,42 @@
 
-<!doctype html>
-<html lang="bn">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#080d1b">
-  <meta name="description" content="Bondhu Chat - বন্ধুদের সঙ্গে ব্যক্তিগত কথোপকথন">
-  <link rel="manifest" href="./manifest.json">
-  <link rel="stylesheet" href="./style.css">
-  <title>Bondhu Chat</title>
-</head>
+<!-- MODERN BOTTOM NAVIGATION -->
+<nav class="bottom-nav">
+  <button type="button" data-go="homePage" class="active">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m3 10 9-7 9 7"/>
+        <path d="M5 9v12h14V9"/>
+        <path d="M9 21v-7h6v7"/>
+      </svg>
+    </span>
+    <small data-i18n="home">হোম</small>
+  </button>
 
-<body>
-<div class="app-shell">
+  <button type="button" data-go="chatsPage">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8A8.5 8.5 0 0 1 12.5 3h.5a8.5 8.5 0 0 1 8 8z"/>
+      </svg>
+    </span>
+    <small data-i18n="chats">চ্যাট</small>
+  </button>
 
-  <!-- HEADER -->
-  <header class="topbar">
-    <div class="brand-mark">B</div>
-    <div class="brand-copy">
-      <div class="brand-name">Bondhu <span>Chat</span></div>
-      <div class="brand-sub" data-i18n="tagline">বন্ধুত্বের কথোপকথন</div>
-    </div>
-    <div class="top-actions">
-      <button id="langToggle" class="icon-btn" type="button">বাং</button>
-      <button id="themeToggle" class="icon-btn" type="button">◐</button>
-    </div>
-  </header>
+  <button type="button" data-go="callsPage">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7l.5 2.9a2 2 0 0 1-.6 1.8L7.1 10a16 16 0 0 0 6 6l1.6-1.9a2 2 0 0 1 1.8-.6l2.9.5a2 2 0 0 1 1.6 1.9z"/>
+      </svg>
+    </span>
+    <small data-i18n="calls">কল</small>
+  </button>
 
-  <main>
-
-    <!-- ONE AUTH SCREEN -->
-    <section id="authView" class="auth-wrap">
-      <div class="hero-orb">BC</div>
-      <p class="eyebrow">WELCOME TO</p>
-      <h1>Bondhu <span>Chat</span></h1>
-      <p class="muted" data-i18n="authIntro">
-        নিরাপদে কথা বলুন, বন্ধুত্ব রাখুন কাছাকাছি।
-      </p>
-
-      <form id="authForm" class="panel auth-panel">
-
-        <div class="segmented">
-          <button type="button" id="loginMode"
-            class="active" data-i18n="login">লগইন</button>
-          <button type="button" id="signupMode"
-            data-i18n="signup">নতুন অ্যাকাউন্ট</button>
-        </div>
-
-        <label id="nameLabel" for="displayName"
-          class="hidden" data-i18n="displayNameLabel">আপনার নাম</label>
-
-        <input id="displayName" class="hidden"
-          type="text" autocomplete="name"
-          placeholder="যেমন: ইস্রাফিল তানিম">
-
-        <label for="email" data-i18n="email">ইমেইল</label>
-        <input id="email" type="email"
-          autocomplete="email" required
-          placeholder="name@example.com">
-
-        <label for="password" data-i18n="password">পাসওয়ার্ড</label>
-        <input id="password" type="password"
-          autocomplete="current-password"
-          minlength="6" required
-          placeholder="কমপক্ষে ৬ অক্ষর">
-
-        <button class="primary-btn full"
-          type="submit" id="authSubmit"
-          data-i18n="login">লগইন</button>
-
-        <button class="text-btn" type="button"
-          id="resetPassword" data-i18n="forgot">
-          পাসওয়ার্ড ভুলে গেছেন?
-        </button>
-
-        <p id="authMessage"
-          class="status-message" role="status"></p>
-      </form>
-    </section>
-
-    <!-- MAIN APP -->
-    <section id="appView" class="hidden">
-
-      <!-- HOME -->
-      <section id="homePage" class="page active">
-        <div class="welcome-row">
-          <div>
-            <p class="eyebrow" data-i18n="goodToSee">
-              আবার দেখা হয়ে ভালো লাগছে
-            </p>
-            <h2 id="welcomeTitle">হ্যালো!</h2>
-          </div>
-          <div class="avatar" id="homeAvatar">B</div>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-glow"></div>
-          <p class="eyebrow">YOUR SPACE</p>
-          <h2 data-i18n="stayConnected">বন্ধুদের সঙ্গে যুক্ত থাকুন</h2>
-          <p data-i18n="homeDesc">
-            এক জায়গায় আপনার কথোপকথন, ভয়েস মেসেজ ও বন্ধুদের তালিকা।
-          </p>
-          <button class="primary-btn"
-            data-go="chatsPage" data-i18n="openChats">
-            চ্যাট খুলুন ↗
-          </button>
-        </div>
-
-        <div class="section-heading">
-          <h3 data-i18n="recentChats">সাম্প্রতিক চ্যাট</h3>
-          <button class="text-btn" data-go="chatsPage"
-            data-i18n="seeAll">সব দেখুন</button>
-        </div>
-
-        <div id="homeRecent" class="chat-list">
-          <div class="empty-state" data-i18n="noChats">
-            এখনো কোনো চ্যাট নেই।
-          </div>
-        </div>
-
-        <div class="notice-card">
-          <span class="notice-icon">✦</span>
-          <div>
-            <strong data-i18n="comingSoon">কল ফিচার আসছে</strong>
-            <p data-i18n="comingDesc">
-              অডিও ও ভিডিও কল পরবর্তী ধাপে যুক্ত হবে।
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- CHATS -->
-      <section id="chatsPage" class="page">
-        <div class="page-heading">
-          <div>
-            <p class="eyebrow">YOUR CONVERSATIONS</p>
-            <h2 data-i18n="chats">চ্যাট</h2>
-          </div>
-          <div class="avatar small" id="chatAvatar">B</div>
-        </div>
-
-        <div class="search-wrap">
-          <span>⌕</span>
-          <input id="userSearch" type="search"
-            placeholder="ইমেইল দিয়ে বন্ধু খুঁজুন"
-            data-i18n-placeholder="searchPlaceholder">
-          <button id="searchBtn" class="search-btn"
-            type="button" data-i18n="search">খুঁজুন</button>
-        </div>
-
-        <p id="searchMessage" class="status-message"></p>
-        <div id="searchResults" class="search-results"></div>
-
-        <div class="section-heading">
-          <h3 data-i18n="yourChats">আপনার চ্যাট</h3>
-        </div>
-
-        <div id="chatList" class="chat-list">
-          <div class="empty-state" data-i18n="noChats">
-            এখনো কোনো চ্যাট নেই।
-          </div>
-        </div>
-      </section>
-
-      <!-- CONVERSATION -->
-      <section id="conversationPage" class="page conversation-page">
-        <div class="conversation-head">
-          <button id="backToChats" class="icon-btn"
-            type="button">‹</button>
-          <div class="avatar small" id="peerAvatar">B</div>
-          <div class="peer-info">
-            <strong id="peerName">বন্ধু</strong>
-            <small id="peerStatus" data-i18n="directChat">
-              সরাসরি চ্যাট
-            </small>
-          </div>
-          <span class="secure-dot">●</span>
-        </div>
-
-        <div id="messages" class="messages">
-          <div class="empty-state" data-i18n="startConversation">
-            কথোপকথন শুরু করুন।
-          </div>
-        </div>
-
-        <div id="recordingStatus" class="recording-status hidden">
-          ● <span data-i18n="recording">রেকর্ড হচ্ছে…</span>
-        </div>
-
-        <form id="messageForm" class="composer">
-          <button type="button" id="voiceBtn"
-            class="icon-btn voice-btn">🎙</button>
-          <input id="messageInput" autocomplete="off"
-            maxlength="4000" placeholder="মেসেজ লিখুন…"
-            data-i18n-placeholder="messagePlaceholder">
-          <button type="submit" id="sendBtn"
-            class="send-btn">➤</button>
-        </form>
-
-        <p class="tiny-note" data-i18n="voiceHint">
-          ভয়েস রেকর্ড শুরু/শেষ করতে মাইক্রোফোন চাপুন।
-        </p>
-      </section>
-
-      <!-- CALLS -->
-      <section id="callsPage" class="page">
-        <div class="page-heading">
-          <div>
-            <p class="eyebrow">STAY IN TOUCH</p>
-            <h2 data-i18n="calls">কল</h2>
-          </div>
-          <div class="round-icon">◉</div>
-        </div>
-
-        <div class="coming-card">
-          <div class="call-art">⌁</div>
-          <h3 data-i18n="callsSoon">অডিও ও ভিডিও কল শিগগিরই</h3>
-          <p data-i18n="callsSoonDesc">
-            বাস্তব কলের জন্য পরবর্তী ধাপে WebRTC যুক্ত হবে।
-          </p>
-          <span class="pill">COMING NEXT</span>
-        </div>
-
-        <div class="section-heading">
-          <h3 data-i18n="callHistory">কলের ইতিহাস</h3>
-        </div>
-        <div class="empty-state" data-i18n="noCalls">
-          এখনো কোনো কল নেই।
-        </div>
-      </section>
-
-      <!-- PROFILE -->
-      <section id="profilePage" class="page">
-        <div class="page-heading">
-          <div>
-            <p class="eyebrow">YOUR ACCOUNT</p>
-            <h2 data-i18n="profile">প্রোফাইল</h2>
-          </div>
-        </div>
-
-        <div class="profile-card">
-          <div class="avatar profile-avatar" id="profileAvatar">B</div>
-          <h3 id="profileName">বন্ধু</h3>
-          <p id="profileEmail" class="muted"></p>
-          <span class="online-pill">
-            <i></i>
-            <span data-i18n="signedIn">সাইন ইন করা আছে</span>
-          </span>
-        </div>
-
-        <div class="settings-list">
-          <div class="setting-row">
-            <div>
-              <strong data-i18n="language">ভাষা</strong>
-              <small data-i18n="languageDesc">বাংলা ও ইংরেজি</small>
-            </div>
-            <button id="langToggle2" class="outline-btn"
-              type="button">বাংলা / EN</button>
-          </div>
-
-          <div class="setting-row">
-            <div>
-              <strong data-i18n="appearance">থিম</strong>
-              <small data-i18n="appearanceDesc">কালো-নীল প্রিমিয়াম</small>
-            </div>
-            <button id="themeToggle2" class="outline-btn"
-              type="button" data-i18n="change">পরিবর্তন</button>
-          </div>
-
-          <div class="setting-row">
-            <div>
-              <strong data-i18n="account">অ্যাকাউন্ট</strong>
-              <small data-i18n="accountDesc">আপনার অ্যাকাউন্ট থেকে বের হন</small>
-            </div>
-            <button id="logoutBtn" class="danger-btn"
-              type="button" data-i18n="logout">লগআউট</button>
-          </div>
-        </div>
-
-        <p class="tiny-note center">
-          Bondhu Chat • <span data-i18n="madeForFriends">
-            বন্ধুদের জন্য তৈরি
-          </span>
-        </p>
-      </section>
-
-      <!-- BOTTOM NAVIGATION -->
-      <nav class="bottom-nav">
-        <button type="button" data-go="homePage" class="active">
-          <span>⌂</span><small data-i18n="home">হোম</small>
-        </button>
-        <button type="button" data-go="chatsPage">
-          <span>▤</span><small data-i18n="chats">চ্যাট</small>
-        </button>
-        <button type="button" data-go="callsPage">
-          <span>◉</span><small data-i18n="calls">কল</small>
-        </button>
-        <button type="button" data-go="profilePage">
-          <span>●</span><small data-i18n="profile">প্রোফাইল</small>
-        </button>
-      </nav>
-
-    </section>
-  </main>
-</div>
-
-<!-- EXISTING JAVASCRIPT -->
-<script type="module" src="./app.js"></script>
-
-</body>
-  </html>
-              
+  <button type="button" data-go="profilePage">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 21a8 8 0 0 1 16 0"/>
+      </svg>
+    </span>
+    <small data-i18n="profile">প্রোফাইল</small>
+  </button>
+</nav>
