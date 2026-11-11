@@ -1,5 +1,5 @@
 
-/* ===== FIXED BOTTOM NAVIGATION ===== */
+/* BONDHU CHAT - PREMIUM BOTTOM NAVIGATION */
 
 .bottom-nav {
   position: fixed;
@@ -7,19 +7,18 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-
   width: min(760px, 100%);
+
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   align-items: center;
   gap: 4px;
 
   padding: 9px 10px calc(9px + env(safe-area-inset-bottom));
 
-  background: rgba(255,255,255,.96);
-  border-top: 1px solid var(--line);
-  border-radius: 20px 20px 0 0;
-  box-shadow: 0 -8px 30px rgba(27,76,47,.08);
+  background: rgba(255,255,255,.97);
+  border-top: 1px solid #e5eaf2;
+  box-shadow: 0 -8px 30px rgba(25,55,100,.08);
 
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -27,14 +26,12 @@
 
 .bottom-nav button {
   appearance: none;
-  -webkit-appearance: none;
-  border: 0 !important;
-  outline: none;
-  box-shadow: none !important;
-  background: transparent !important;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 
   min-width: 0;
-  min-height: 58px;
+  min-height: 62px;
   width: 100%;
   padding: 5px 2px;
 
@@ -44,7 +41,7 @@
   justify-content: center;
   gap: 4px;
 
-  color: #87958b;
+  color: #8492a8;
   border-radius: 15px;
   transition: .2s ease;
   -webkit-tap-highlight-color: transparent;
@@ -57,22 +54,20 @@
   place-items: center;
   border-radius: 12px;
   font-size: 23px;
-  line-height: 1;
 }
 
 .bottom-nav button small {
   font-family: "Hind Siliguri", sans-serif;
   font-size: 12px;
   font-weight: 600;
-  line-height: 1.4;
 }
 
 .bottom-nav button.active {
-  color: var(--green);
+  color: #2468c9;
 }
 
 .bottom-nav button.active span {
-  background: var(--green-soft);
+  background: #e5efff;
 }
 
 .bottom-nav button:active {
@@ -83,21 +78,21 @@
 
 body.dark .bottom-nav,
 body[data-theme="dark"] .bottom-nav {
-  background: rgba(20,33,26,.97);
-  border-color: var(--line);
+  background: rgba(15,25,43,.97);
+  border-color: #263650;
 }
 
 body.dark .bottom-nav button,
 body[data-theme="dark"] .bottom-nav button {
-  color: var(--muted);
+  color: #9baac0;
 }
 
 body.dark .bottom-nav button.active,
 body[data-theme="dark"] .bottom-nav button.active {
-  color: #a2e8bd;
+  color: #83b5ff;
 }
 
 body.dark .bottom-nav button.active span,
 body[data-theme="dark"] .bottom-nav button.active span {
-  background: #244531;
+  background: #203a60;
 }
